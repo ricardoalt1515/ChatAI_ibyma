@@ -1,0 +1,78 @@
+/* styles/Home.module.css */
+.container {
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.description {
+  margin: 1.5rem 0;
+  line-height: 1.5;
+  font-size: 1.25rem;
+  text-align: center;
+  color: #666;
+}
+
+.chatWrapper {
+  margin: 2rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoSection {
+  margin-top: 3rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.infoSection h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.infoSection ul {
+  padding-left: 1.5rem;
+}
+
+.infoSection li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+}
