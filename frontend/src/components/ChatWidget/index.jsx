@@ -5,35 +5,55 @@ import ChatButton from './ChatButton';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ChatWidget = ({
-  botName = 'AI Assistant',
-  botAvatar = '/images/bot-avatar.png',
+  botName = 'HydroConsult',
+  botAvatar = '/images/hydro-avatar.png',
   userAvatar = '/images/user-avatar.png',
-  primaryColor = '#7C3AED', // Color morado por defecto
-  accentColor = '#4F46E5',
+  primaryColor = '#0284c7', // Azul agua por defecto
+  accentColor = '#0891b2',   // Turquesa por defecto
   apiEndpoint = '/api/chat',
-  position = 'right', // 'right' o 'left'
-  initialMessage = '¡Hola! ¿En qué puedo ayudarte hoy?',
+  position = 'right',
+  initialMessage = 'Bienvenido a HydroConsult. Soy su asistente en soluciones hídricas sostenibles. ¿En qué puedo ayudarle hoy?',
   darkMode = false
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: initialMessage, timestamp: new Date() }
+    {
+      role: 'assistant',
+      content: initialMessage,
+      timestamp: new Date()
+    }
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(false);
 
   // Alternar la ventana de chat
   const toggleChat = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
-      setUnreadCount(0); // Reiniciar contador cuando se abre
+      setUnreadCount(0); // Reiniciar contador al abrir
+
+      // Mostrar mensaje de bienvenida si es la primera vez que se abre
+      if (messages.length === 1 && !showGreeting) {
+        setShowGreeting(true);
+        setTimeout(() => {
+          setIsTyping(true);
+          setTimeout(() => {
+            setMessages(prev => [...prev, {
+              role: 'assistant',
+              content: '¿Está interesado en alguna de nuestras soluciones específicas de gestión del agua?',
+              timestamp: new Date()
+            }]);
+            setIsTyping(false);
+          }, 2000);
+        }, 1000);
+      }
     }
   };
 
-  // Simular nuevo mensaje del bot para fines de demostración
+  // Notificaciones cuando el chat está cerrado
   useEffect(() => {
     if (!isOpen && messages.length > 1) {
-      // Si el chat está cerrado y tenemos más que el mensaje inicial
       const lastMessageFromBot = messages[messages.length - 1].role === 'assistant';
       if (!lastMessageFromBot) {
         setUnreadCount(prev => prev + 1);
@@ -63,7 +83,11 @@ const ChatWidget = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: messages.map(msg => ({ role: msg.role, content: msg.content }))
+          messages: messages.map(msg => ({ role: msg.role, content: msg.content })),
+          context: {
+            domain: "soluciones_hidricas",
+            professional: true
+          }
         }),
       });
 
@@ -71,7 +95,9 @@ const ChatWidget = ({
 
       const data = await response.json();
 
-      // Añadir respuesta del asistente con ligero retraso para simular escritura
+      // Simular tiempo de respuesta realista (entre 1-3 segundos)
+      const responseTime = Math.floor(Math.random() * 2000) + 1000;
+
       setTimeout(() => {
         setMessages(prev => [...prev, {
           role: 'assistant',
@@ -79,13 +105,13 @@ const ChatWidget = ({
           timestamp: new Date()
         }]);
         setIsTyping(false);
-      }, 500);
+      }, responseTime);
 
     } catch (error) {
       console.error('Error:', error);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: 'Lo siento, ha ocurrido un error. Por favor, intenta de nuevo.',
+        content: 'Lo siento, ha ocurrido un error al procesar su consulta. Por favor, inténtelo de nuevo o contáctenos directamente a soporte@hidrosoluciones.com',
         timestamp: new Date()
       }]);
       setIsTyping(false);
@@ -122,7 +148,11 @@ const ChatWidget = ({
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 25
+            }}
           >
             <ChatWindow
               messages={messages}
@@ -132,6 +162,12 @@ const ChatWidget = ({
               botName={botName}
               botAvatar={botAvatar}
               userAvatar={userAvatar}
+              quickReplies={[
+                "Sistemas de purificación",
+                "Soluciones de ahorro",
+                "Tratamiento industrial",
+                "Contactar especialista"
+              ]}
             />
           </motion.div>
         )}

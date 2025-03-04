@@ -50,8 +50,8 @@ export default function Home() {
                 <button
                   key={name}
                   className={`w-8 h-8 rounded-full border-2 transition-all ${theme === name
-                      ? 'scale-110 border-white dark:border-gray-900 shadow-lg'
-                      : 'border-gray-200 dark:border-gray-700'
+                    ? 'scale-110 border-white dark:border-gray-900 shadow-lg'
+                    : 'border-gray-200 dark:border-gray-700'
                     }`}
                   style={{ backgroundColor: colors.primary }}
                   onClick={() => handleChangeTheme(name)}

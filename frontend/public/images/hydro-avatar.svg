@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular gradiente -->
+  <circle cx="256" cy="256" r="256" fill="url(#avatar-gradient)" />
+  
+  <!-- Definiciones para gradientes y patrones -->
+  <defs>
+    <linearGradient id="avatar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    
+    <linearGradient id="droplet-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C2F1FF" />
+      <stop offset="100%" stop-color="#7dd3fc" />
+    </linearGradient>
+    
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  
+  <!-- Logo corporativo con forma de gota de agua estilizada -->
+  <g transform="translate(104, 94)" filter="url(#dropShadow)">
+    <!-- Gota de agua grande -->
+    <path d="M152 288C152 288 304 160 304 80C304 36 264 0 216 0C176 0 152 24 152 24S128 0 88 0C40 0 0 36 0 80C0 160 152 288 152 288Z" fill="url(#droplet-gradient)" />
+    
+    <!-- Círculos concéntricos representando ondas en el agua -->
+    <circle cx="152" cy="120" r="80" fill="none" stroke="white" stroke-width="6" stroke-opacity="0.6" />
+    <circle cx="152" cy="120" r="60" fill="none" stroke="white" stroke-width="4" stroke-opacity="0.4" />
+    <circle cx="152" cy="120" r="40" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.3" />
+    
+    <!-- Símbolo de tecnología/sostenibilidad -->
+    <g transform="translate(112, 90) scale(0.8)">
+      <path d="M80 200 L80 160 L40 120 L80 80 L120 120 L80 160" fill="none" stroke="#0c4a6e" stroke-width="8" stroke-linejoin="round" />
+      <circle cx="80" cy="80" r="12" fill="#0c4a6e" />
+      <circle cx="40" cy="120" r="12" fill="#0c4a6e" />
+      <circle cx="80" cy="160" r="12" fill="#0c4a6e" />
+      <circle cx="120" cy="120" r="12" fill="#0c4a6e" />
+    </g>
+  </g>
+</svg>
